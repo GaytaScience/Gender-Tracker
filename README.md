@@ -1,4 +1,4 @@
-## Gender-Tracker
+## Gender-Tracker##
 
 Project to create an interactive visualization of gender fluctuations over time using d3.js. 
 
@@ -9,8 +9,13 @@ Data is read into the program as a .csv file. The repository includes 2 .csv fil
 
 ### How to Run
 If you download the repository, you can use a python simple HTTP server to run the app locally in your browser.
-
-
+ - Clone or Download the repo
+ - In the command prompt navigate to your local folder
+ - Start a python simple HTTP server (3000 can be any number you like):
+```
+ python -m SimpleHTTPServer 3000
+```
+ - In a browser go to http://localhost:3000/ to see your visualization
 
 ### Capabilities
 The program creates 3 visualizations; a line chart, a gauge, and a histogram showing and summarizing the data input. The selection brush in the middle of the page will update the visualizations accordingly. Rollover tooltip capabilites in the line and bar charts give the user additional information. 
