@@ -8,9 +8,12 @@ I have tracked gender fluctuations daily since Nov 2014 using an excel spreadshe
 Data is read into the program as a .csv file. The repository includes 2 .csv files; a small test data file and the actual data. 
 
 ### How to Run
+If you download the repository, you can use a python simple HTTP server to run the app locally in your browser.
+
 
 
 ### Capabilities
 The program creates 3 visualizations; a line chart, a gauge, and a histogram showing and summarizing the data input. The selection brush in the middle of the page will update the visualizations accordingly. Rollover tooltip capabilites in the line and bar charts give the user additional information. 
 
+Screenshot below:
 ![image](https://cloud.githubusercontent.com/assets/7966316/23377540/6462ac1c-fcfe-11e6-9a16-e8b5be6e58ec.png)
