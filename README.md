@@ -1,4 +1,4 @@
-### Gender-Tracker##
+### Gender-Tracker
 
 Project to create an interactive visualization of gender fluctuations over time using d3.js. 
 
