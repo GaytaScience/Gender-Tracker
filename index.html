@@ -1,9 +1,10 @@
 <!DOCTYPE html>
+<!-- Scrolly demo: http://vallandingham.me/scroller.html -->
 <html lang="en"> 
 	<head>
 		<meta charset="utf-8">
 		<title>Test</title>
-		<script src="http://code.jquery.com/jquery.js"></script>
+		<!-- <script src="http://code.jquery.com/jquery.js"></script> -->
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 		<!-- <script type="text/javascript" src="d3/d3.js"></script> -->
@@ -11,6 +12,26 @@
 	
 	</head>
 	<style> /* set the CSS */
+
+	#sections {
+  		position: relative;
+  		display: inline-block;
+  		top: 0px;
+  		z-index: 90;
+	}
+
+	.step {
+  		margin-bottom: 200px;
+	}
+
+	#vis {
+  		display: inline-block;
+  		position: fixed;
+  		top: 50px;
+  		z-index: 1;
+  		margin-left: 0;
+  		/*background-color: #ddd;*/
+	}
 
 	.svg-container {
 	    display: inline-block;*/ 
@@ -130,15 +151,15 @@
 
 	@media only screen and (min-width: 768px) and (max-width: 992px) {
 
-		 h2 { font-size: 30px; margin:3%;}
-		 h1 { font-size: 20px;  margin:3%;}
+		 h2 { font-size: 24px; margin:3%;}
+		 h1 { font-size: 18px;  margin:3%;}
 
 	}
 
 	@media only screen and (min-width: 992px) {
 
-		 h2 { font-size: 35px; margin:3%;}
-		 h1 { font-size: 25px;  margin:3%;}
+		 h2 { font-size: 28px; margin:3%;}
+		 h1 { font-size: 20px;  margin:3%;}
 
 	}
 
@@ -170,43 +191,35 @@
 	stroke-width: 2;
 	}
 
-/*	.boxed {
+	.boxed {
   	border: 1px solid green ;
-	}*/
+	}
 
 	</style>
 	<body>
 
-<!-- 	<div class="row">
-		<div class="col-xs-7 text-right" id="svg"></div>
-		<div class="col-xs-5 text-left">
-			<div class="row">
-				<div id="directions-head" class="col-xs-5 text-left">
-					<h2><strong>Tool Directions</strong></h2>
-				</div>
-			</div>
-			<div class="row">
-				<div id="directions" class="col-xs-5 text-left" style="padding-top: 10px;">
-					<p>Select a desired time period using the middle timeline slider. </p>
-				</div>
-			</div>
-			<div class="row">
-				<div id="ntooltip" class="col-xs-5 text-left">
-					<h1><span id="value">100</span></h1>
-				</div>
-			</div>
-			<div class="row">
-      	<div class="col-xs-5 text-left" id="chart-gauge"></div>
-    	</div>
-			<div class="row">
-      	<div class="col-xs-5 text-left"><h1><strong>Distribution of Selection</strong></h1></div>
-    	</div>
-			<div class="row">
-      	<div class="col-xs-5 text-left" id="chart-hist"></div>
-    	</div>
-	</div>
-</div> -->
+<div id='graphic'>
 
+<div id='sections' class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+  <p class='step'>
+    <div class="title">OpenVis Conf 2013</div>
+    I did what no presenter should ever do: I watched my own talk...
+  </p>
+  <p class='step'>
+    <div class="title">Filler Words</div>
+     As expected, I could only focus on the flaws: the rushed speech, the odd phrases, and,
+  </p>
+  <p class='step'>
+  	<div class="title">3rd section</div>
+    Pointing out another thing here it is really cool dontcha know? 
+  </p>
+  <p class='step'>
+  	<div class="title">AND ANOTHER THING</div>
+    Pointing out another thing here it is really cool dontcha know? Its way cooler than the lasthing
+  </p>
+</div>
+
+<div id='vis' class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
 <div class = "row text-left boxed" id="daterange" >
 	<h2><span id="value">100</span></h2>
 </div>
@@ -228,8 +241,38 @@
 		</div>
 </div>
 </div>
-
+</div>
+</div>
+		<!-- <script src="scroller.js"></script> -->
+		<script src="https://1wheel.github.io/graph-scroll/graph-scroll.js"></script>
 		<script type="text/javascript">
+
+
+		(function() {
+
+			function graphscroll() {
+				// select elements using d3 here since this is a d3 library...
+				var graphicEl = d3.select('#graphic')
+				var graphicVisEl = graphicEl.select('#vis')
+				var triggerEls = graphicEl.selectAll('.step')
+	
+				// console.log(graphicEl);
+				// console.log(graphicVisEl);
+				// console.log(triggerEls);
+	
+				d3.graphScroll()
+					.container(graphicEl)
+					.graph(graphicVisEl)
+					.sections(triggerEls)
+					.on('active', function(i){ console.log(i + 'th section active') })
+			}
+	
+			graphscroll()
+
+		})()
+
+		// LINE PLOTS
+		//----------------------------------------------------------------------
 
 		// Set up chart space
 		var margin = {top: 10, right: 150, bottom: 30, left: 60},
