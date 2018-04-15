@@ -6,9 +6,49 @@
 		<script src="http://code.jquery.com/jquery.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-		<script type="text/javascript" src="d3/d3.js"></script>
+		<!-- <script type="text/javascript" src="d3/d3.js"></script> -->
+
+		<script charset="utf-8" src="https://d3js.org/d3.v4.min.js"></script>
 	</head>
 	<style> /* set the CSS */
+
+	.svg-container {
+	    display: inline-block;*/
+	    position: relative;
+	    width: 100%;
+	    /*min-width: 300px;*/
+	    /*max-width: 800px;*/
+	    /*padding-bottom: 60%;*/
+	    vertical-align: bottom;
+	    overflow: hidden;
+	}
+
+	.svg-content {
+	    display: inline-block;
+	    position: relative;
+	    /*top: 10%;*/
+	    /*left: 10%;*/
+	    /*margin: 0 auto*/
+	}
+
+	.line-container {
+	    display: inline-block;*/
+	    position: relative;
+	    width: 50%;
+	    /*min-width: 300px;*/
+	    /*max-width: 800px;*/
+	    /*padding-bottom: 60%;*/
+	    vertical-align: bottom;
+	    overflow: hidden;
+	}
+
+	.line-content {
+	    display: inline-block;
+	    position: relative;
+	    /*top: 10%;*/
+	    /*left: 10%;*/
+	    /*margin: 0 auto*/
+	}
 
 	.line {
 	  fill: none;
@@ -67,6 +107,41 @@
 		font-size: small;
 	}
 
+	@media only screen and (max-width: 320px) {
+
+		 h2 { font-size: 12px; margin:3%;}
+		 h1 { font-size: 8px;  margin:3%;}
+
+	}
+
+	@media only screen and (min-width: 320px) and (max-width: 480px) {
+
+		 h2 { font-size: 15px; margin:3%;}
+		 h1 { font-size: 11px;  margin:3%;}
+
+	}
+
+	@media only screen and (min-width: 480px) and (max-width: 768px) {
+
+		 h2 { font-size: 21px; margin:3%;}
+		 h1 { font-size: 16px;  margin:3%;}
+
+	}
+
+	@media only screen and (min-width: 768px) and (max-width: 992px) {
+
+		 h2 { font-size: 30px; margin:3%;}
+		 h1 { font-size: 20px;  margin:3%;}
+
+	}
+
+	@media only screen and (min-width: 992px) {
+
+		 h2 { font-size: 35px; margin:3%;}
+		 h1 { font-size: 25px;  margin:3%;}
+
+	}
+
 	#directions {
 		background: #D3D3D3;
 	}
@@ -94,11 +169,15 @@
 	stroke: black;
 	stroke-width: 2;
 	}
+/*
+	.boxed {
+  	border: 1px solid green ;
+	}*/
 
 	</style>
 	<body>
 
-	<div class="row">
+<!-- 	<div class="row">
 		<div class="col-xs-7 text-right" id="svg"></div>
 		<div class="col-xs-5 text-left">
 			<div class="row">
@@ -126,6 +205,28 @@
       	<div class="col-xs-5 text-left" id="chart-hist"></div>
     	</div>
 	</div>
+</div> -->
+
+<div class = "row text-center" id="daterange">
+	<h2><span id="value">100</span></h2>
+</div>
+<div class="row">
+	<div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 text-right boxed line-container pull-bottom" id="svg"></div>
+	<div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 text-left boxed pull-bottom">
+		<!-- <div class="row text-center" id="daterange">
+				<h2><span id="value">100</span></h2>
+		</div> -->
+		<div class="row text-left" id="ntooltip">
+				<h1><span id="value">100</span></h1>
+		</div>
+		<div class="row text-left boxed svg-container" id="chart-gauge">
+		</div>
+		<div class="row text-left">
+			<h1><strong>Distribution of Selection</strong></h1>
+		</div>
+		<div class="row text-left boxed svg-container" id="chart-hist">
+		</div>
+</div>
 </div>
 
 		<script type="text/javascript">
@@ -135,11 +236,14 @@
 		 		margin2 = {top: 10, right: 20, bottom: 30, left: 525},
 				width = 600 - margin.left - margin.right,
 				width2 = 600 - margin2.left - margin2.right,
-    		height = 700 - margin.top - margin.bottom;
+    		height = 640 - margin.top - margin.bottom;
 
 		var svg = d3.select("#svg").append("svg")
-								.attr("width", 600)
-								.attr("height", 700);
+								.attr("preserveAspectRatio", "xMinYMin meet")
+								.attr("viewBox", "0 0 600 640")
+								.classed("line-content", true);
+								// .attr("width", 600)
+								// .attr("height", 700);
 
     	// Assign Colors
     	var blue = '#ADD8E6'; //'#71a3f2';
@@ -445,6 +549,11 @@
 					.transition()
 					.call(d3.axisLeft(y));
 					//.ticks(d3.max(final, function(d) { return d.value })));
+			
+			// Change Date Range Labeling
+			d3.select("#daterange")
+				.select("#value")
+			  .html("<strong>" + "Selected Date Range: " + "</strong>" + formatTime(lowerbrush) + " - " + formatTime(upperbrush));
 
 		}
 
@@ -486,7 +595,12 @@ var degToRad = function(deg) {
 	return deg * Math.PI / 180;
 };
 
-var svg_gauge = el.append('svg').attr('width', gwidth + gmargin.left + gmargin.right).attr('height', gheight + gmargin.top + gmargin.bottom);
+var svg_gauge = el.append('svg')
+				  .attr("preserveAspectRatio", "xMinYMin meet")
+				  .attr("viewBox", "0 0 445 230")
+				  .classed("svg-content", true);
+
+// var svg_gauge = el.append('svg').attr('width', gwidth + gmargin.left + gmargin.right).attr('height', gheight + gmargin.top + gmargin.bottom);
 
 var chart = svg_gauge.append('g') .attr('transform', "translate(" + ((gwidth + gmargin.left) / 2) + ", " + ((gheight + gmargin.top)) + ")");
 
@@ -551,7 +665,7 @@ Needle = (function() {
 	// set the dimensions and margins of the graph
 	var hmargin = {top: 20, right: 30, bottom: 30, left: 40},
 			hwidth = 450 - hmargin.left - hmargin.right,
-			hheight = 290 - hmargin.top - hmargin.bottom;
+			hheight = 230 - hmargin.top - hmargin.bottom;
 
 	// set the ranges
 
@@ -567,8 +681,12 @@ Needle = (function() {
 	// append a 'group' element to 'svg'
 	// moves the 'group' element to the top left margin
 	var hsvg = d3.select('#chart-hist').append("svg")
-			.attr("width", hwidth + hmargin.left + hmargin.right)
-			.attr("height", hheight + hmargin.top + hmargin.bottom)
+			.attr("preserveAspectRatio", "xMinYMin meet")
+			.attr("viewBox", "0 0 450 230")
+			.classed("svg-content", true)
+
+			// .attr("width", hwidth + hmargin.left + hmargin.right)
+			// .attr("height", hheight + hmargin.top + hmargin.bottom)
 			.append("g")
 			.attr("transform", "translate(" + hmargin.left + "," + hmargin.top + ")");
 
