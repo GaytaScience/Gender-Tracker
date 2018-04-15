@@ -7,8 +7,8 @@
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 		<!-- <script type="text/javascript" src="d3/d3.js"></script> -->
-
 		<script charset="utf-8" src="https://d3js.org/d3.v4.min.js"></script>
+	
 	</head>
 	<style> /* set the CSS */
 
@@ -169,8 +169,8 @@
 	stroke: #464A4F;
 	stroke-width: 2;
 	}
-/*
-	.boxed {
+
+/*	.boxed {
   	border: 1px solid green ;
 	}*/
 
@@ -207,7 +207,7 @@
 	</div>
 </div> -->
 
-<div class = "row text-center" id="daterange">
+<div class = "row text-left boxed" id="daterange" >
 	<h2><span id="value">100</span></h2>
 </div>
 <div class="row">
@@ -485,7 +485,9 @@
 		context.append("g")
 		    .attr("class", "brush")
 		    .call(brush)
-		    .call(brush.move, [yScale.range()[1] + (yScale.range()[0])/2 , (yScale.range()[0])/2 + (yScale.range()[0])/4]);
+		    //.call(brush.move, [yScale.range()[1] + (yScale.range()[0])/2 , (yScale.range()[0])/2 + (yScale.range()[0])/4]);
+		    //console.log([parseTime("01/19/2015"), parseTime("08/01/2015")].map(y2Scale))
+		    .call(brush.move, [parseTime("01/19/2015"), parseTime("08/01/2015")].map(y2Scale).reverse());
 
 		});
 
@@ -628,7 +630,7 @@ Needle = (function() {
 	Needle.prototype.animateOn = function(el, perc) {
 		var self;
 		self = this;
-		return el.transition().delay(500).ease(d3.easeElastic).duration(3000).selectAll('.needle').tween('progress', function() {
+		return el.transition().delay(10).ease(d3.easeElastic).duration(3000).selectAll('.needle').tween('progress', function() {
 			return function(percentOfPercent) {
 				var progress;
 				progress = percentOfPercent * perc;
@@ -655,7 +657,7 @@ Needle = (function() {
 
 	})();
 
-	needle = new Needle(90, 15);
+	needle = new Needle(90,15);
 
 	needle.drawOn(chart, 0);
 
@@ -770,9 +772,9 @@ hsvg.append("g")
 		.call(d3.axisBottom(x));
 
 // add the y Axis
-hsvg.append("g")
-		.attr("class", "yaxis_bar")
-		.call(d3.axisLeft(y));
+// hsvg.append("g")
+// 		.attr("class", "yaxis_bar")
+// 		.call(d3.axisLeft(y));
 
 		</script>
 	</body>
