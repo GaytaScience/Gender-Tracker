@@ -142,9 +142,9 @@
 
 	}
 
-	#directions {
+/*	#directions {
 		background: #D3D3D3;
-	}
+	}*/
 
 	rect.bar_-1, rect.bar_0, rect.bar_1 { fill: #ddddbc }
 
@@ -154,19 +154,19 @@
 
 	rect.bar_-1:hover, rect.bar_0:hover, rect.bar_1:hover {
 	/*fill: orangered ;*/
-	stroke: black;
+	stroke: #464A4F;
 	stroke-width: 2;
 	}
 
 	rect.bar_-5:hover, rect.bar_-4:hover, rect.bar_-3:hover, rect.bar_-2:hover {
 	/*fill: orangered ;*/
-	stroke: black;
+	stroke: #464A4F;
 	stroke-width: 2;
 	}
 
 	rect.bar_5:hover, rect.bar_4:hover, rect.bar_3:hover, rect.bar_2:hover {
 	/*fill: orangered ;*/
-	stroke: black;
+	stroke: #464A4F;
 	stroke-width: 2;
 	}
 /*
@@ -737,7 +737,7 @@ function updatehist(final) {
 	bars.on ("mouseover", function(d) {
 		//Get this bar's x/y values, then augment for the tooltip
 		var xPosition = parseFloat(d3.select(this).attr("x")) + x.bandwidth() / 2;
-		var yPosition = parseFloat(d3.select(this).attr("y")) + 14;
+		var yPosition = parseFloat(d3.select(this).attr("y")) - 7; //+ 14 for inside bar
 
 		//Create the tooltip label
 	 hsvg.append("text")
@@ -749,7 +749,7 @@ function updatehist(final) {
 			.attr("font-size", "14px")
 			.attr("font-weight", "bold")
 			.attr("fill", "black")
-			.text(d.value);
+			.text(d.value + " days");
 			})
 
 		bars.on("mouseout", function() {
