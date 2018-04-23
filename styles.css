@@ -1,0 +1,183 @@
+html, body, #container, #graph, #sections {
+  height: 100%;
+  font-size: 18px; }
+
+#container {
+  /*display: flex;*/ }
+
+.step {
+  height: 100%;
+  max-width: 500px;
+  width: 100%;
+  padding: 15px 25px; }
+
+#graph {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  position: fixed;
+  top: 0px;
+  z-index: 1;
+  margin-left: 0;
+  width: 100%; }
+  #graph .graph-wrapper {
+    width: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    max-height: 100%; }
+    #graph .graph-wrapper .graph-body, #graph .graph-wrapper .graph-body > div {
+      height: 100%; }
+
+.svg-container {
+  display: inline-block;
+  position: relative;
+  width: 100%;
+  /*min-width: 300px;*/
+  /*max-width: 800px;*/
+  /*padding-bottom: 60%;*/
+  vertical-align: bottom;
+  overflow: hidden; }
+
+.svg-content {
+  display: inline-block;
+  position: relative;
+  /*top: 10%;*/
+  /*left: 10%;*/
+  /*margin: 0 auto*/ }
+
+.line-content {
+  display: inline-block;
+  position: relative;
+  /*top: 10%;*/
+  /*left: 10%;*/
+  /*margin: 0 auto*/ }
+
+.line {
+  fill: none;
+  stroke: #47077A;
+  stroke-width: 2px;
+  -webkit-clip-path: url(#clip);
+  clip-path: url(#clip); }
+
+.dots {
+  fill: #47077A;
+  -webkit-clip-path: url(#clip);
+  clip-path: url(#clip); }
+
+.dots:hover {
+  stroke: #47077A;
+  stroke-width: 2; }
+
+.chart-gauge {
+  width: 400px;
+  margin: 10px auto; }
+
+.chart-color1 {
+  fill: #ADD8E6; }
+
+.chart-color2 {
+  fill: #ddddbc; }
+
+.chart-color3 {
+  fill: #FFB6C1; }
+
+.needle,
+.needle-center {
+  fill: #464A4F; }
+
+h2 {
+  font-family: sans-serif;
+  color: #47077A;
+  font-size: x-large; }
+
+h1 {
+  font-family: sans-serif;
+  color: #47077A;
+  font-size: medium; }
+
+p {
+  font-family: sans-serif;
+  color: black;
+  font-size: small; }
+
+@media only screen and (max-width: 320px) {
+  h2 {
+    font-size: 12px;
+    margin: 3%; }
+  h1 {
+    font-size: 8px;
+    margin: 3%; } }
+
+@media only screen and (min-width: 320px) and (max-width: 480px) {
+  h2 {
+    font-size: 15px;
+    margin: 3%; }
+  h1 {
+    font-size: 11px;
+    margin: 3%; } }
+
+@media only screen and (min-width: 480px) and (max-width: 768px) {
+  h2 {
+    font-size: 21px;
+    margin: 3%; }
+  h1 {
+    font-size: 16px;
+    margin: 3%; } }
+
+@media only screen and (min-width: 768px) and (max-width: 992px) {
+  h2 {
+    font-size: 24px;
+    margin: 3%; }
+  h1 {
+    font-size: 18px;
+    margin: 3%; } }
+
+@media only screen and (min-width: 992px) {
+  h2 {
+    font-size: 28px;
+    margin: 3%; }
+  h1 {
+    font-size: 20px;
+    margin: 3%; } }
+
+/*	#directions {
+	background: #D3D3D3;
+}*/
+rect.bar_-1, rect.bar_0, rect.bar_1 {
+  fill: #ddddbc; }
+
+rect.bar_-5, rect.bar_-4, rect.bar_-3, rect.bar_-2 {
+  fill: #ADD8E6; }
+
+rect.bar_5, rect.bar_4, rect.bar_3, rect.bar_2 {
+  fill: #FFB6C1; }
+
+rect.bar_-1:hover, rect.bar_0:hover, rect.bar_1:hover {
+  /*fill: orangered ;*/
+  stroke: #464A4F;
+  stroke-width: 2; }
+
+rect.bar_-5:hover, rect.bar_-4:hover, rect.bar_-3:hover, rect.bar_-2:hover {
+  /*fill: orangered ;*/
+  stroke: #464A4F;
+  stroke-width: 2; }
+
+rect.bar_5:hover, rect.bar_4:hover, rect.bar_3:hover, rect.bar_2:hover {
+  /*fill: orangered ;*/
+  stroke: #464A4F;
+  stroke-width: 2; }
+
+.boxed {
+  border: 1px solid green; }
+
+.row {
+  margin: 0px; }
