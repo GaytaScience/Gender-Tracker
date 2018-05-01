@@ -3,19 +3,15 @@
 	<head>
 		<meta charset="utf-8">
 		<title>Test</title>
-<<<<<<< HEAD
-=======
+
 		<script src="http://code.jquery.com/jquery.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
->>>>>>> master
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 		<link rel="stylesheet" href="styles.css">
 	</head>
-<<<<<<< HEAD
 	<body>
 
 <div id='container'>
-
 	<div id='sections'>
 	  <div class='step'>
 	    <div class="title">OpenVis Conf 2013</div>
@@ -38,237 +34,28 @@
 	<div id='graph'>
 		<div class="step"></div>
 		<div class="graph-wrapper">
-			<div class = "row text-left " id="daterange" >
-=======
-	<style> /* set the CSS */
-
-	.svg-container {
-	    display: inline-block;*/ 
-	    position: relative;
-	    width: 100%;
-	    /*min-width: 300px;*/
-	    /*max-width: 800px;*/
-	    /*padding-bottom: 60%;*/
-	    vertical-align: bottom;
-	    overflow: hidden;
-	}
-
-	.svg-content {
-	    display: inline-block;
-	    position: relative;
-	    /*top: 10%;*/
-	    /*left: 10%;*/
-	    /*margin: 0 auto*/
-	}
-
-	.line-container {
-	    display: inline-block;*/
-	    position: relative;
-	    width: 50%;
-	    /*min-width: 300px;*/
-	    /*max-width: 800px;*/
-	    /*padding-bottom: 60%;*/
-	    vertical-align: bottom;
-	    overflow: hidden;
-	}
-
-	.line-content {
-	    display: inline-block;
-	    position: relative;
-	    /*top: 10%;*/
-	    /*left: 10%;*/
-	    /*margin: 0 auto*/
-	}
-
-	.line {
-	  fill: none;
-	  stroke: #47077A;
-	  stroke-width: 2px;
-	  clip-path: url(#clip);
-	}
-
-	.dots {
-		fill: #47077A;
-		clip-path: url(#clip);
-	}
-
-	.dots:hover {
-		stroke: #47077A;
-		stroke-width: 2;
-	}
-
-	.chart-gauge {
-		width: 400px;
-		margin: 10px auto;
-	}
-
-	.chart-color1 {
-		fill: #ADD8E6;
-	}
-
-	.chart-color2 {
-		fill: #ddddbc;
-	}
-
-	.chart-color3 {
-		fill: #FFB6C1;
-	}
-
-	.needle,
-	.needle-center {
-		fill: #464A4F;
-	}
-
-	h2 {
-		font-family: sans-serif;
-		color: #47077A;
-		font-size: x-large;
-	}
-
-	h1 {
-		font-family: sans-serif;
-		color: #47077A;
-		font-size: medium;
-	}
-
-	p {
-		font-family: sans-serif;
-		color: black;
-		font-size: small;
-	}
-
-	@media only screen and (max-width: 320px) {
-
-		 h2 { font-size: 12px; margin:3%;}
-		 h1 { font-size: 8px;  margin:3%;}
-
-	}
-
-	@media only screen and (min-width: 320px) and (max-width: 480px) {
-
-		 h2 { font-size: 15px; margin:3%;}
-		 h1 { font-size: 11px;  margin:3%;}
-
-	}
-
-	@media only screen and (min-width: 480px) and (max-width: 768px) {
-
-		 h2 { font-size: 21px; margin:3%;}
-		 h1 { font-size: 16px;  margin:3%;}
-
-	}
-
-	@media only screen and (min-width: 768px) and (max-width: 992px) {
-
-		 h2 { font-size: 30px; margin:3%;}
-		 h1 { font-size: 20px;  margin:3%;}
-
-	}
-
-	@media only screen and (min-width: 992px) {
-
-		 h2 { font-size: 35px; margin:3%;}
-		 h1 { font-size: 25px;  margin:3%;}
-
-	}
-
-/*	#directions {
-		background: #D3D3D3;
-	}*/
-
-	rect.bar_-1, rect.bar_0, rect.bar_1 { fill: #ddddbc }
-
-	rect.bar_-5, rect.bar_-4, rect.bar_-3, rect.bar_-2 { fill: #ADD8E6 }
-
-	rect.bar_5, rect.bar_4, rect.bar_3, rect.bar_2 { fill: #FFB6C1 }
-
-	rect.bar_-1:hover, rect.bar_0:hover, rect.bar_1:hover {
-	/*fill: orangered ;*/
-	stroke: #464A4F;
-	stroke-width: 2;
-	}
-
-	rect.bar_-5:hover, rect.bar_-4:hover, rect.bar_-3:hover, rect.bar_-2:hover {
-	/*fill: orangered ;*/
-	stroke: #464A4F;
-	stroke-width: 2;
-	}
-
-	rect.bar_5:hover, rect.bar_4:hover, rect.bar_3:hover, rect.bar_2:hover {
-	/*fill: orangered ;*/
-	stroke: #464A4F;
-	stroke-width: 2;
-	}
-
-/*	.boxed {
-  	border: 1px solid green ;
-	}*/
-
-	</style>
-	<body>
-
-<!-- 	<div class="row">
-		<div class="col-xs-7 text-right" id="svg"></div>
-		<div class="col-xs-5 text-left">
-			<div class="row">
-				<div id="directions-head" class="col-xs-5 text-left">
-					<h2><strong>Tool Directions</strong></h2>
-				</div>
-			</div>
-			<div class="row">
-				<div id="directions" class="col-xs-5 text-left" style="padding-top: 10px;">
-					<p>Select a desired time period using the middle timeline slider. </p>
-				</div>
-			</div>
-			<div class="row">
-				<div id="ntooltip" class="col-xs-5 text-left">
-					<h1><span id="value">100</span></h1>
-				</div>
-			</div>
-			<div class="row">
-      	<div class="col-xs-5 text-left" id="chart-gauge"></div>
-    	</div>
-			<div class="row">
-      	<div class="col-xs-5 text-left"><h1><strong>Distribution of Selection</strong></h1></div>
-    	</div>
-			<div class="row">
-      	<div class="col-xs-5 text-left" id="chart-hist"></div>
-    	</div>
-	</div>
-</div> -->
-
-<div class = "row text-left boxed" id="daterange" >
-	<h2><span id="value">100</span></h2>
-</div>
-<div class="row">
-	<div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 text-right boxed line-container pull-bottom" id="svg"></div>
-	<div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 text-left boxed pull-bottom">
-		<!-- <div class="row text-center" id="daterange">
->>>>>>> master
+			<div class = "row text-left boxed" id="daterange" >
 				<h2><span id="value">100</span></h2>
 			</div>
-			<div class="row graph-body">
-				<div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 text-right  line-container pull-bottom" id="svg"></div>
-				<div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 text-left  pull-bottom">
-					<!-- <div class="row text-center" id="daterange">
-							<h2><span id="value">100</span></h2>
-					</div> -->
-					<div class="row text-left" id="ntooltip">
-							<h1><span id="value">100</span></h1>
-					</div>
-					<div class="row text-left  svg-container" id="chart-gauge">
-					</div>
-					<div class="row text-left">
-						<h1><strong>Distribution of Selection</strong></h1>
-					</div>
-					<div class="row text-left  svg-container" id="chart-hist">
-					</div>
+			<div class="row">
+				<div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 text-right boxed line-container pull-bottom" id="svg"></div>
+				<div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 text-left boxed pull-bottom row graph-body">
+								<div class="row text-left">
+									<h1><strong>Average of Selection</strong></h1>
+								</div>
+								<div class="row text-left  svg-container" id="chart-gauge">
+								</div>
+								<div class="row text-left">
+									<h1><strong>Distribution of Selection</strong></h1>
+								</div>
+								<div class="row text-left  svg-container" id="chart-hist">
+								</div>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
-<<<<<<< HEAD
+
 <script src="http://code.jquery.com/jquery.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <!-- <script type="text/javascript" src="d3/d3.js"></script> -->
@@ -279,21 +66,18 @@
 
 		var graph = d3.selectAll('#graph');
 		var container = d3.select('#container');
-		var sections = d3.selectAll('#sections .step');
-
+		var sections = d3.selectAll('#sections > .step');
+		console.log(sections);
 		var graphScroll = d3.graphScroll()
 				.graph(graph)
 				.container(container)
 				.sections(sections)
 				.on('active', function(i){ console.log(i + 'th section active'); });
+		// graphScroll.offset(300);
 
 		
 		// LINE PLOTS
 		//----------------------------------------------------------------------
-=======
-
-		<script type="text/javascript">
->>>>>>> master
 
 		// Set up chart space
 		var margin = {top: 10, right: 150, bottom: 30, left: 60},
