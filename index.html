@@ -12,6 +12,29 @@
 	<body>
 
 <div id='container'>
+	<div id='graph'>
+		<div class="step"></div>
+		<div class="graph-wrapper">
+			<div class = "row text-left boxed" id="daterange" >
+				<h2><span id="value">100</span></h2>
+			</div>
+			<div class="row row-graph">
+				<div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 text-right boxed line-container pull-bottom" id="svg"></div>
+				<div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 text-left boxed pull-bottom row graph-body">
+								<div class="row text-left">
+									<h1><strong>Average of Selection</strong></h1>
+								</div>
+								<div class="row text-left  svg-container" id="chart-gauge">
+								</div>
+								<div class="row text-left">
+									<h1><strong>Distribution of Selection</strong></h1>
+								</div>
+								<div class="row text-left  svg-container" id="chart-hist">
+								</div>
+				</div>
+			</div>
+		</div>
+	</div>
 	<div id='sections'>
 	  <div class='step'>
 	    <div class="title">OpenVis Conf 2013</div>
@@ -31,29 +54,7 @@
 	  </div>
 	</div>
 
-	<div id='graph'>
-		<div class="step"></div>
-		<div class="graph-wrapper">
-			<div class = "row text-left boxed" id="daterange" >
-				<h2><span id="value">100</span></h2>
-			</div>
-			<div class="row">
-				<div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 text-right boxed line-container pull-bottom" id="svg"></div>
-				<div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 text-left boxed pull-bottom row graph-body">
-								<div class="row text-left">
-									<h1><strong>Average of Selection</strong></h1>
-								</div>
-								<div class="row text-left  svg-container" id="chart-gauge">
-								</div>
-								<div class="row text-left">
-									<h1><strong>Distribution of Selection</strong></h1>
-								</div>
-								<div class="row text-left  svg-container" id="chart-hist">
-								</div>
-				</div>
-			</div>
-		</div>
-	</div>
+	
 </div>
 
 <script src="http://code.jquery.com/jquery.js"></script>
@@ -64,16 +65,18 @@
 <script src="https://1wheel.github.io/graph-scroll/graph-scroll.js"></script>
 <script type="text/javascript">
 
+$(document).ready(function(){
 		var graph = d3.selectAll('#graph');
 		var container = d3.select('#container');
 		var sections = d3.selectAll('#sections > .step');
-		console.log(sections);
 		var graphScroll = d3.graphScroll()
 				.graph(graph)
 				.container(container)
 				.sections(sections)
 				.on('active', function(i){ console.log(i + 'th section active'); });
-		// graphScroll.offset(300);
+		graphScroll.offset(300);
+
+});
 
 		
 		// LINE PLOTS

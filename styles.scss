@@ -1,4 +1,4 @@
-html, body, #container, #graph, #sections {
+html, body, #graph {
 	height: 100%;
 	font-size: 18px;
 }
@@ -8,7 +8,7 @@ html, body, #container, #graph, #sections {
 }
 
 .step {
-	height: 100%;
+	height: 500px;
 	max-width: 500px;
 	width:100%;
 	padding: 15px 25px;
@@ -16,7 +16,7 @@ html, body, #container, #graph, #sections {
 
 #graph {
 		display: flex;
-	flex-direction: row;
+		flex-direction: row;
 		position: fixed;
 		top: 0px;
 		z-index: 1;
@@ -31,9 +31,13 @@ html, body, #container, #graph, #sections {
     		// .graph-body {
     			
     		// } 
-			.graph-body , .graph-body > div{
+			.graph-body {
 				height: 100%;
 			}
+		}
+		.row-graph {
+			height: 100%;
+   			display: flex;
 		}
 }
 
