@@ -53,6 +53,18 @@ log2 <- log %>%
 word_counts <- log2 %>%
   count(word, gender) 
 
+# Word Cloud for Quick Understanding?
+# From https://cran.r-project.org/web/packages/tidytext/vignettes/tidytext.html
+library(wordcloud)
+library(reshape2)
+
+log2 %>%
+  count(word, gender, sort = TRUE) %>%
+  filter(!gender == "Neutral") %>%
+  acast(word ~ gender, value.var = "n", fill = 0) %>%
+  comparison.cloud(colors = c("#F8766D", "#00BFC4"),
+                   max.words = 100)
+
 ##---------------------------------------------------------------------
 ## Significant Words
 ##---------------------------------------------------------------------
