@@ -53,6 +53,13 @@ log2 <- log %>%
 word_counts <- log2 %>%
   count(word, gender) 
 
+# Pull in Exclustion Terms
+excl.txt <- read.table("excl.txt", header=F)
+exclwords <- excl.txt[['V1']]
+class(exclwords)
+exclwords
+
+
 # Word Cloud for Quick Understanding?
 # From https://cran.r-project.org/web/packages/tidytext/vignettes/tidytext.html
 library(wordcloud)
@@ -60,6 +67,7 @@ library(reshape2)
 
 log2 %>%
   count(word, gender, sort = TRUE) %>%
+  filter(!word %in% exclwords) %>%
   filter(!gender == "Neutral") %>%
   acast(word ~ gender, value.var = "n", fill = 0) %>%
   comparison.cloud(colors = c("#F8766D", "#00BFC4"),
