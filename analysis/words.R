@@ -1,6 +1,5 @@
 setwd("C:/Users/Kelsey/Desktop/Gender-Tracker/data")
 
-
 install.packages("tidytext")
 install.packages("stringr")
 install.packages("tidyverse")
@@ -58,7 +57,6 @@ excl.txt <- read.table("excl.txt", header=F)
 exclwords <- excl.txt[['V1']]
 class(exclwords)
 exclwords
-
 
 # Word Cloud for Quick Understanding?
 # From https://cran.r-project.org/web/packages/tidytext/vignettes/tidytext.html
@@ -214,3 +212,27 @@ words_by_time %>%
 
 # Some interesting words, but i suspect most changes are due to just shifts in my language...
 # Check if need to trim date ends
+
+##---------------------------------------------------------------------
+## Bigrams
+##---------------------------------------------------------------------
+
+# Clean up Text (lightly)
+logbi <- log %>%
+  mutate(date2 = as.Date(date, "%m/%d/%Y")) %>%
+  mutate(text = str_to_lower(thoughts, locale = "en")) %>%
+  unnest_tokens(bigram, text, token = "ngrams", n = 2) 
+
+# Bigram Counts by Gender
+bi_counts <- logbi %>%
+  count(bigram, gender) 
+
+# Remove bigrams where one is a stopword
+bigrams_separated <- bi_counts %>%
+  separate(bigram, c("word1", "word2"), sep = " ")
+
+bigrams_filtered <- bigrams_separated %>%
+  filter(!word1 %in% all_stop_words$word) %>%
+  filter(!word2 %in% all_stop_words$word)
+
+# Not super interesting, words clouds with ex's prob tell story best
