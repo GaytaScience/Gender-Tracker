@@ -63,13 +63,21 @@ exclwords
 library(wordcloud)
 library(reshape2)
 
-log2 %>%
+par(bg=NA)
+cloud <- log2 %>%
   count(word, gender, sort = TRUE) %>%
   filter(!word %in% exclwords) %>%
   filter(!gender == "Neutral") %>%
   acast(word ~ gender, value.var = "n", fill = 0) %>%
-  comparison.cloud(colors = c("#F8766D", "#00BFC4"),
+  comparison.cloud(colors = c("lightpink", "lightblue"),
                    max.words = 100)
+cloud
+
+#c("#F8766D", "#00BFC4") - darker
+#c("lightpink", "lightblue") - matches
+
+dev.copy(png,'cloud.png')
+dev.off()
 
 ##---------------------------------------------------------------------
 ## Significant Words
@@ -192,7 +200,7 @@ words_by_time_sep %>%
 #Overall
 
 words_by_time <- log2 %>%
-  mutate(time_floor = floor_date(date2, unit = "3 month")) %>%
+  mutate(time_floor = floor_date(date2, unit = "6 month")) %>%
   count(time_floor, word) %>%
   ungroup() %>%
   group_by(time_floor) %>%
@@ -205,7 +213,7 @@ words_by_time <- log2 %>%
 words_by_time
 
 words_by_time %>%
-  filter(word %in% c("control")) %>%
+  filter(word %in% c("control", "acceptance", "accept")) %>%
   ggplot(aes(time_floor, count/time_total, color = word)) +
   geom_line(size = 1.3) +
   labs(x = NULL, y = "Word frequency")
