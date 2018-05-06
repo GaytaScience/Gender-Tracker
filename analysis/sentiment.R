@@ -253,11 +253,11 @@ radar_f <- nrc_words %>%
   spread(aha,n)
 
 # JavaScript radar chart default package settings
-allaha<- chartJSRadar(radar_m)
+allaha<- chartJSRadar(radar_o)
 allaha
 
 mascaha<- chartJSRadar(radar_m)
 mascaha
 
-femaha<- chartJSRadar(radar_m)
+femaha<- chartJSRadar(radar_f)
 femaha
