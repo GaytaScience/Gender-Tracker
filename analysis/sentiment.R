@@ -6,12 +6,14 @@ install.packages("tidyverse")
 install.packages("libridate")
 install.packages("ggjoy")
 install.packages("radarchart")
+install.packages("ggplot2")
 library(tidytext)
 library(tidyverse)
 library(stringr)
 library(libridate)
 library(ggjoy)
 library(radarchart)
+library(ggplot2)
 
 # Read in Data
 #-------------------------------------------
