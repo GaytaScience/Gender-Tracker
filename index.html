@@ -15,12 +15,12 @@
 	<div id='graph'>
 		<div class="step"></div>
 		<div class="graph-wrapper">
-			<div class = "row text-left boxed" id="daterange" >
+			<div class = "row text-left" id="daterange" >
 				<h2><span id="value">100</span></h2>
 			</div>
 			<div class="row row-graph">
-				<div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 text-right boxed line-container pull-bottom" id="svg"></div>
-				<div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 text-left boxed pull-bottom row graph-body">
+				<div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 text-right line-container pull-bottom" id="svg"></div>
+				<div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 text-left pull-bottom row graph-body">
 								<div class="row text-left" id = "ntooltip">
 									<h1><span id="value">100</span></h1>
 								</div>
@@ -38,7 +38,7 @@
 	<div id='sections'>
 	  <div class='step'>
 	    <div class="title"><strong>Monthly Moves</strong></div>
-	    A month might have 1-2 feminine and masculine periods, each lasting from a day or two to longer than a week. Between extremes, I typically spend significant time in the neutral zone. Dragging the weekly brush up and down the timeline will allow you to see monthly snapshots overtime. Nov 2016 – entirely neutral-masculine!
+	    A month might have 1-2 feminine and masculine periods, each lasting from a day or two to longer than a week. Between extremes, I typically spend significant time in the neutral zone. Dragging the brush (dark shaded part of middle graph) up and down the timeline will allow you to see monthly snapshots overtime. Nov 2016 – entirely neutral-masculine!
 	  </div>
 	  <div class='step'>
 	    <div class="title"><strong>Early On</strong></div>
@@ -46,7 +46,7 @@
 	  </div>
 	  <div class='step'>
 	  	<div class="title"><strong>And Later</strong></div>
-	    Two years later, the story changes a bit. I’m now spending 52% of days in the Neutral zone, 32% Masculine, and 15% Feminine. Overall this brings my average gender further blue to -0.57, however, still firm in the neutral zone. 2017 also realized an increase in the number of swings as well – going up to 27 masculine and 18 feminine periods during the year.  
+	    Two years later, the story changes a bit. I’m now spending 52% of days in the Neutral zone, 32% Masculine, and 15% Feminine. Overall this brings my average gender further blue to -0.58, however, still firm in the neutral zone. 2017 also realized an increase in the number of swings as well – going up to 27 masculine and 18 feminine periods during the year.  
 	  </div>
 	  <div class='step'>
 	  	<div class="title"><strong>Post "Aha!"</strong></div>
@@ -347,7 +347,7 @@ $(document).ready(function(){
 
 		context.append("g")
 		    .attr("class", "brush")
-		    .call(brush)
+		    //.call(brush)
 		    //.call(brush.move, [yScale.range()[1] + (yScale.range()[0])/2 , (yScale.range()[0])/2 + (yScale.range()[0])/4]);
 		    //console.log([parseTime("01/19/2015"), parseTime("08/01/2015")].map(y2Scale))
 		    //.call(brush.move, [parseTime("01/19/2015"), parseTime("08/01/2015")].map(y2Scale).reverse());
@@ -355,7 +355,7 @@ $(document).ready(function(){
 		});
 		
 		function updatedash(date1, date2) {
-			context.call(brush).call(brush.move, [parseTime(date1), parseTime(date2)].map(y2Scale).reverse()).transition().duration(1000);
+			context.call(brush).call(brush.move, [parseTime(date1), parseTime(date2)].map(y2Scale).reverse());
 		}
 
 		function brushed() {;
