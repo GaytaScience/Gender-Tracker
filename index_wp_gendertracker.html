@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="en"> 
+	<head>
+		<meta charset="utf-8">
+		<!--<title>Test</title>-->
+		<!--<script src="http://code.jquery.com/jquery.js"></script>-->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+		<!-- <script type="text/javascript" src="d3/d3.js"></script> -->
+		<script charset="utf-8" src="https://d3js.org/d3.v4.min.js"></script>
+	
+	</head>
+	<style> /* set the CSS */
+
+	.svg-container {
+	    display: inline-block;*/ 
+	    position: relative;
+	    width: 100%;
+	    /*min-width: 300px;*/
+	    /*max-width: 800px;*/
+	    /*padding-bottom: 60%;*/
+	    vertical-align: bottom;
+	    overflow: hidden;
+	}
+
+	.svg-content {
+	    display: inline-block;
+	    position: relative;
+	    /*top: 10%;*/
+	    /*left: 10%;*/
+	    /*margin: 0 auto*/
+	}
+
+	.line-container {
+	    display: inline-block;*/
+	    position: relative;
+	    width: 50%;
+	    /*min-width: 300px;*/
+	    /*max-width: 800px;*/
+	    /*padding-bottom: 60%;*/
+	    vertical-align: bottom;
+	    overflow: hidden;
+	}
+
+	.line-content {
+	    display: inline-block;
+	    position: relative;
+	    /*top: 10%;*/
+	    /*left: 10%;*/
+	    /*margin: 0 auto*/
+	}
+
+	.line {
+	  fill: none;
+	  stroke: #47077A;
+	  stroke-width: 2px;
+	  clip-path: url(#clip);
+	}
+
+	.dots {
+		fill: #47077A;
+		clip-path: url(#clip);
+	}
+
+	.dots:hover {
+		stroke: #47077A;
+		stroke-width: 2;
+	}
+
+	.chart-gauge {
+		width: 400px;
+		margin: 10px auto;
+	}
+
+	.chart-color1 {
+		fill: #ADD8E6;
+	}
+
+	.chart-color2 {
+		fill: #ddddbc;
+	}
+
+	.chart-color3 {
+		fill: #FFB6C1;
+	}
+
+	.needle,
+	.needle-center {
+		fill: #464A4F;
+	}
+
+	h2 {
+		font-family: sans-serif;
+		color: #47077A;
+		font-size: large;
+	}
+
+	h1 {
+		font-family: sans-serif;
+		color: #47077A;
+		font-size: medium;
+	}
+
+	p {
+		font-family: sans-serif;
+		color: black;
+		font-size: small;
+	}
+
+	@media only screen and (max-width: 320px) {
+
+		 h2 { font-size: 10px; margin:1%;}
+		 h1 { font-size: 5px;  margin:1%;}
+
+	}
+
+	@media only screen and (min-width: 320px) and (max-width: 480px) {
+
+		 h2 { font-size: 10px; margin:1%;}
+		 h1 { font-size: 5px;  margin:1%;}
+
+	}
+
+	@media only screen and (min-width: 480px) and (max-width: 768px) {
+
+		 h2 { font-size: 18px; margin:1%;}
+		 h1 { font-size: 14px;  margin:1%;}
+
+	}
+
+	@media only screen and (min-width: 768px) and (max-width: 992px) {
+
+		 h2 { font-size: 20px; margin:1%;}
+		 h1 { font-size: 15px;  margin:1%;}
+
+	}
+
+	@media only screen and (min-width: 992px) {
+
+		 h2 { font-size: 25px; margin:1%;}
+		 h1 { font-size: 20px;  margin:1%;}
+
+	}
+
+/*	#directions {
+		background: #D3D3D3;
+	}*/
+
+	rect.bar_-1, rect.bar_0, rect.bar_1 { fill: #ddddbc }
+
+	rect.bar_-5, rect.bar_-4, rect.bar_-3, rect.bar_-2 { fill: #ADD8E6 }
+
+	rect.bar_5, rect.bar_4, rect.bar_3, rect.bar_2 { fill: #FFB6C1 }
+
+	rect.bar_-1:hover, rect.bar_0:hover, rect.bar_1:hover {
+	/*fill: orangered ;*/
+	stroke: #464A4F;
+	stroke-width: 2;
+	}
+
+	rect.bar_-5:hover, rect.bar_-4:hover, rect.bar_-3:hover, rect.bar_-2:hover {
+	/*fill: orangered ;*/
+	stroke: #464A4F;
+	stroke-width: 2;
+	}
+
+	rect.bar_5:hover, rect.bar_4:hover, rect.bar_3:hover, rect.bar_2:hover {
+	/*fill: orangered ;*/
+	stroke: #464A4F;
+	stroke-width: 2;
+	}
+
+/*	.boxed {
+  	border: 1px solid green ;
+	}*/
+
+	</style>
+	<body>
+
+<!-- 	<div class="row">
+		<div class="col-xs-7 text-right" id="svg"></div>
+		<div class="col-xs-5 text-left">
+			<div class="row">
+				<div id="directions-head" class="col-xs-5 text-left">
+					<h2><strong>Tool Directions</strong></h2>
+				</div>
+			</div>
+			<div class="row">
+				<div id="directions" class="col-xs-5 text-left" style="padding-top: 10px;">
+					<p>Select a desired time period using the middle timeline slider. </p>
+				</div>
+			</div>
+			<div class="row">
+				<div id="ntooltip" class="col-xs-5 text-left">
+					<h1><span id="value">100</span></h1>
+				</div>
+			</div>
+			<div class="row">
+      	<div class="col-xs-5 text-left" id="chart-gauge"></div>
+    	</div>
+			<div class="row">
+      	<div class="col-xs-5 text-left"><h1><strong>Distribution of Selection</strong></h1></div>
+    	</div>
+			<div class="row">
+      	<div class="col-xs-5 text-left" id="chart-hist"></div>
+    	</div>
+	</div>
+</div> -->
+
+<div class = "row text-left boxed" id="daterange" >
+	<h2><span id="value">100</span></h2>
+</div>
+<div class="row">
+	<div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 text-right boxed line-container pull-bottom" id="svg"></div>
+	<div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 text-left boxed pull-bottom">
+		<!-- <div class="row text-center" id="daterange">
+				<h2><span id="value">100</span></h2>
+		</div> -->
+		<div class="row text-left" id="ntooltip">
+				<h1><span id="value">100</span></h1>
+		</div>
+		<div class="row text-left boxed svg-container" id="chart-gauge">
+		</div>
+		<div class="row text-left">
+			<h1><strong>Distribution of Selection</strong></h1>
+		</div>
+		<div class="row text-left boxed svg-container" id="chart-hist">
+		</div>
+</div>
+</div>
+
+		<script type="text/javascript">
+
+		// Set up chart space
+		var margin = {top: 10, right: 150, bottom: 30, left: 60},
+		 		margin2 = {top: 10, right: 20, bottom: 30, left: 525},
+				width = 600 - margin.left - margin.right,
+				width2 = 600 - margin2.left - margin2.right,
+    		height = 640 - margin.top - margin.bottom;
+
+		var svg = d3.select("#svg").append("svg")
+								.attr("preserveAspectRatio", "xMinYMin meet")
+								.attr("viewBox", "0 0 600 640")
+								.classed("line-content", true);
+								// .attr("width", 600)
+								// .attr("height", 700);
+
+    	// Assign Colors
+    	var blue = '#ADD8E6'; //'#71a3f2'; 
+    	var yellow = '#ddddbc'; //'#FFFFE0'; //#f7d367';
+    	var pink = '#FFB6C1'; //#f78ce2';
+
+		// Read in Data
+		var parseTime = d3.timeParse("%m/%d/%Y");
+
+		// Create Scales
+		var yScale = d3.scaleTime().range([height,0]),
+		    y2Scale = d3.scaleTime().range([height,0]),
+	      xScale = d3.scaleLinear().range([0, width]),
+				x2Scale = d3.scaleLinear().range([0, width2]);
+
+		// define the main line
+		var valueline = d3.line()
+		    .x(function(d) { return xScale(d.scale); })
+		    .y(function(d) { return yScale(d.date); });
+
+		// define the brush line
+		var valueline2 = d3.line()
+		    .x(function(d) { return x2Scale(d.scale); })
+		    .y(function(d) { return y2Scale(d.date); });
+
+		// Custome time format
+		var formatMillisecond = d3.timeFormat(".%L"),
+		    formatSecond = d3.timeFormat(":%S"),
+		    formatMinute = d3.timeFormat("%I:%M"),
+		    formatHour = d3.timeFormat("%I %p"),
+		    formatDay = d3.timeFormat("%a %d"),
+		    formatWeek = d3.timeFormat("%b %d"),
+		    formatMonth = d3.timeFormat("%B"),
+		    formatYear = d3.timeFormat("%Y");
+
+		function multiFormat(date) {
+		  return (d3.timeSecond(date) < date ? formatMillisecond
+		      : d3.timeMinute(date) < date ? formatSecond
+		      : d3.timeHour(date) < date ? formatMinute
+		      : d3.timeDay(date) < date ? formatHour
+		      : d3.timeMonth(date) < date ? (d3.timeWeek(date) < date ? formatDay : formatWeek)
+		      : d3.timeYear(date) < date ? formatMonth
+		      : formatYear)(date);
+		}
+
+		// Create Axes
+		var yAxis = d3.axisLeft()
+		    .scale(yScale)
+			.tickFormat(multiFormat);
+
+		var y2Axis = d3.axisLeft()
+		    .scale(y2Scale)
+			.tickFormat(multiFormat);
+
+		var xAxis = d3.axisBottom()
+		    .scale(xScale);
+
+		var x2Axis = d3.axisBottom()
+		    .scale(x2Scale)
+			.ticks(3);
+
+		var brush = d3.brushY()
+			.extent([[0,0], [width2, height]])
+			.on("brush end", brushed);
+
+		// Append SVG object
+		svg.append("defs").append("clipPath")
+    		.attr("id", "clip")
+  			.append("rect")
+    		.attr("width", width)
+    		.attr("height", height);
+
+		var focus = svg.append("g")
+		    .attr("class", "focus")
+		    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+		var context = svg.append("g")
+		    .attr("class", "context")
+		    .attr("transform", "translate(" + margin2.left + "," + margin2.top + ")");
+
+		//Color Background - Focus Graph
+		var bluerec = focus.append("rect")
+			.attr("x", 0)
+			.attr("y", 0)
+    	    .attr("width", xScale(.3))
+    	    .attr("height", height)
+    	    .style('opacity', 0.5)
+    	    .style('fill', blue);
+
+		var yellowrec = focus.append("rect")
+			.attr("x", xScale(.3))
+			.attr("y", 0)
+		    .attr("width", xScale(.4))
+		    .attr("height", height)
+		    .style('opacity', 0.5)
+		    .style('fill', yellow);
+
+		var pinkrec = focus.append("rect")
+			.attr("x", xScale(.7))
+			.attr("y", 0)
+		    .attr("width", xScale(.3))
+		    .attr("height", height)
+		    .style('opacity', 0.5)
+		    .style('fill', pink);
+
+		// Reference Line - Focus Graph
+		var zeroline = focus.append("line")
+			.attr("y1", 0)
+			.attr("y2", height)
+			.attr("x1", xScale(.5))
+			.attr("x2", xScale(.5))
+			.attr("stroke", "black")
+			.attr("stroke-width", "1.5")
+			.style("stroke-dasharray", ("6, 6"));
+
+		//Color Background - Context Graph
+		var bluerec = context.append("rect")
+			.attr("x", 0)
+			.attr("y", 0)
+    	    .attr("width", x2Scale(.3))
+    	    .attr("height", height)
+    	    .style('opacity', 0.5)
+    	    .style('fill', blue);
+
+		var yellowrec = context.append("rect")
+			.attr("x", x2Scale(.3))
+			.attr("y", 0)
+		    .attr("width", x2Scale(.4))
+		    .attr("height", height)
+		    .style('opacity', 0.5)
+		    .style('fill', yellow);
+
+		var pinkrec = context.append("rect")
+			.attr("x", x2Scale(.7))
+			.attr("y", 0)
+		    .attr("width", x2Scale(.3))
+		    .attr("height", height)
+		    .style('opacity', 0.5)
+		    .style('fill', pink);
+
+		// Reference Line - Context Graph
+		var zeroline = context.append("line")
+			.attr("y1", 0)
+			.attr("y2", height)
+			.attr("x1", x2Scale(.5))
+			.attr("x2", x2Scale(.5))
+			.attr("stroke", "black")
+			.attr("stroke-width", "1")
+			.style("stroke-dasharray", ("3, 3"));
+
+		// Get data
+		//data/data.csv
+		//https://www.gaytascience.com/wp-content/uploads/2018/05/data.csv
+		d3.csv("https://www.gaytascience.com/wp-content/uploads/2018/05/data.csv", function(error, data) {
+		  if (error) throw error;
+
+		// format the data
+		data.forEach(function(d) {
+		   	d.date = parseTime(d.date);
+		   	d.scale = parseInt(d.scale);
+		});
+
+		// Set scale domains based on data
+		yScale.domain(d3.extent(data, function(d) { return d.date }));
+		xScale.domain([-5,5]);
+		y2Scale.domain(d3.extent(data, function(d) { return d.date }));
+		x2Scale.domain([-5,5]);
+
+		// FOCUS GRAPH
+		//----------------------------------------------------------------------
+
+		// Function to format date for tooltip
+		formatTime = d3.timeFormat("%m/%d/%Y");
+
+		// Add the valueline path.
+	  focus.append("path")
+	       .data([data])
+	       .attr("class", "line")
+	       .attr("d", valueline);
+
+		// Add Scatterplot
+		focus.selectAll("dot")
+			.data(data)
+			.enter().append("circle")
+			.attr("r", 2.5)
+			.attr("cx", function(d) { return xScale(d.scale); })
+			.attr("cy", function(d) { return yScale(d.date); })
+			.attr("class", "dots")
+			.on ("mouseover", function(d) {
+				//Get this dots x/y values, then augment for the tooltip
+				var xPosition = d3.select(this).attr("cx");
+				var yPosition = parseFloat(d3.select(this).attr("cy")) - 10;
+
+				//Create the tooltip label
+			 focus.append("text")
+					.attr("id", "ltooltip")
+					.attr("x", xPosition)
+					.attr("y", yPosition)
+					.attr("text-anchor", "middle")
+					.attr("font-family", "sans-serif")
+					.attr("font-size", "14px")
+					.attr("font-weight", "bold")
+					.attr("fill", "black")
+					.text(formatTime(d.date) + ", " + "Scale: " + d.scale);
+					})
+
+			.on("mouseout", function() {
+					//Remove tooltip
+					d3.select("#ltooltip").remove();
+				})
+
+		// Draw Axes
+		focus.append("g")
+		    .attr("class", "xaxis")
+		    .attr("transform", "translate(0," + height + ")")
+		    .call(xAxis);
+
+		focus.append("g")
+		    .attr("class", "yaxis")
+		    .call(yAxis);
+
+		// CONTEXT GRAPH
+		//----------------------------------------------------------------------
+
+		// Add the valueline path.
+		context.append("path")
+		    .data([data])
+		    .attr("class", "line")
+		    .attr("d", valueline2);
+
+		// Draw Axes
+		context.append("g")
+		    .attr("class", "xaxis")
+		    .attr("transform", "translate(0," + height + ")")
+		    .call(x2Axis);
+
+		context.append("g")
+		    .attr("class", "yaxis")
+		    .call(y2Axis);
+
+		context.append("g")
+		    .attr("class", "brush")
+		    .call(brush)
+		    //.call(brush.move, [yScale.range()[1] + (yScale.range()[0])/2 , (yScale.range()[0])/2 + (yScale.range()[0])/4]);
+		    //console.log([parseTime("01/19/2015"), parseTime("08/01/2015")].map(y2Scale))
+		    .call(brush.move, [parseTime("01/19/2015"), parseTime("08/01/2015")].map(y2Scale).reverse());
+
+		});
+
+		function brushed() {
+		  if (d3.event.sourceEvent && d3.event.sourceEvent.type === "zoom") return; // ignore brush-by-zoom
+		  var s = d3.event.selection || y2Scale.range(),
+					array = [];
+					counts = {};
+		  yScale.domain(s.map(y2Scale.invert, y2Scale).reverse());
+		  focus.select(".line").attr("d", valueline);
+		  focus.selectAll(".dots").attr("r", 2.5).attr("cx", function(d) { return xScale(d.scale); }).attr("cy", function(d) { return yScale(d.date); });
+		  focus.select(".yaxis").call(yAxis);
+			// Figure out selected data for other viz's
+			for (i = 0; i < focus.selectAll(".dots")._groups[0].length; i++) {
+				var dotdate = yScale.invert(focus.selectAll(".dots")._groups[0][i].cy.animVal.value),
+				 		lowerbrush = s.map(y2Scale.invert, y2Scale).reverse()[0],
+						upperbrush = s.map(y2Scale.invert, y2Scale).reverse()[1],
+						dotscale = xScale.invert(focus.selectAll(".dots")._groups[0][i].cx.animVal.value);
+				if ( dotdate > lowerbrush && dotdate <= upperbrush ) {
+					//keep the # to average for gauge
+					array.push(dotscale);
+					//add dot to the counts for hist
+					var key = dotscale;
+					if (counts[key]) {
+							counts[key]++;
+					}
+					else {
+							counts[key] = 1;
+					}
+				};
+			 }
+
+			// Average the selected points
+			var sum = 0;
+			for (j = 0; j < array.length; j++) {
+				sum += array[j];
+			}
+			var avg = sum / array.length;
+
+			// Move gauge
+			needle.animateOn(chart, (avg+5)/10);
+
+			d3.select("#ntooltip")
+					.select("#value")
+					.html("<strong>" + "Scale Average: " + "</strong>" + d3.format("1.4")(avg));
+
+			// Make hist final dataset
+			var final = [];
+			for (var key in counts) {
+			    final.push({
+						key: key,
+						value: counts[key]
+					});
+			};
+
+			// Update Bars
+			updatehist(final);
+
+			// update y Axis
+			hsvg.select(".yaxis_bar")
+					.transition()
+					.call(d3.axisLeft(y));
+					//.ticks(d3.max(final, function(d) { return d.value })));
+			
+			// Change Date Range Labeling
+			d3.select("#daterange")
+				.select("#value")
+			  .html("<strong>" + "Selected Date Range: " + "</strong>" + formatTime(lowerbrush) + " - " + formatTime(upperbrush));
+
+		}
+
+// GAUGE!!!
+// -----------------------------------------------------------------------------------
+
+var percent = percent, //For  my data +5 and then /10
+		barWidth = 40,
+		numSections = 3,
+ 		sectionPerc = 1 / numSections / 2,
+		padRad = 0.05,
+		chartInset = 10,
+		totalPercent = .75,
+
+		el = d3.select('#chart-gauge'),
+
+		gmargin = {
+			top: 0,
+			right: 20,
+			bottom: 15,
+			left: 70
+		},
+
+		gwidth = 380//el._groups[0][0].offsetWidth - gmargin.left - gmargin.right,
+
+		gheight = gwidth / 2,
+
+		radius = gwidth / 2 ;
+
+var percToDeg = function(perc) {
+	return perc * 360;
+};
+
+var percToRad = function(perc) {
+	return degToRad(percToDeg(perc));
+};
+
+var degToRad = function(deg) {
+	return deg * Math.PI / 180;
+};
+
+var svg_gauge = el.append('svg')
+				  .attr("preserveAspectRatio", "xMinYMin meet")
+				  .attr("viewBox", "0 0 445 230")
+				  .classed("svg-content", true);
+
+// var svg_gauge = el.append('svg').attr('width', gwidth + gmargin.left + gmargin.right).attr('height', gheight + gmargin.top + gmargin.bottom);
+
+var chart = svg_gauge.append('g') .attr('transform', "translate(" + ((gwidth + gmargin.left) / 2) + ", " + ((gheight + gmargin.top)) + ")");
+
+for (sectionIndx = i = 1, ref = numSections; 1 <= ref ? i <= ref : i >= ref; sectionIndx = 1 <= ref ? ++i : --i) {
+	arcStartRad = percToRad(totalPercent);
+	arcEndRad = arcStartRad + percToRad(sectionPerc);
+	totalPercent += sectionPerc;
+	startPadRad = sectionIndx === 0 ? 0 : padRad / 2;
+	endPadRad = sectionIndx === numSections ? 0 : padRad / 2;
+	arc = d3.arc().outerRadius(radius - chartInset).innerRadius(radius - chartInset - barWidth).startAngle(arcStartRad + startPadRad).endAngle(arcEndRad - endPadRad);
+	chart.append('path').attr('class', "arc chart-color" + sectionIndx).attr('d', arc);
+}
+
+Needle = (function() {
+	function Needle(len, radius1) {
+		this.len = len;
+		this.radius = radius1;
+	}
+
+	Needle.prototype.drawOn = function(el, perc) {
+		el.append('circle').attr('class', 'needle-center').attr('cx', 0).attr('cy', 0).attr('r', this.radius);
+		return el.append('path').attr('class', 'needle').attr('d', this.mkCmd(perc));
+	};
+
+	Needle.prototype.animateOn = function(el, perc) {
+		var self;
+		self = this;
+		return el.transition().delay(10).ease(d3.easeElastic).duration(3000).selectAll('.needle').tween('progress', function() {
+			return function(percentOfPercent) {
+				var progress;
+				progress = percentOfPercent * perc;
+				return d3.selectAll('.needle').attr('d', self.mkCmd(progress));
+				};
+			});
+		};
+
+	Needle.prototype.mkCmd = function(perc) {
+		var centerX, centerY, leftX, leftY, rightX, rightY, thetaRad, topX, topY;
+		thetaRad = percToRad(perc / 2);
+		centerX = 0;
+		centerY = 0;
+		topX = centerX - this.len * Math.cos(thetaRad);
+		topY = centerY - this.len * Math.sin(thetaRad);
+		leftX = centerX - this.radius * Math.cos(thetaRad - Math.PI / 2);
+		leftY = centerY - this.radius * Math.sin(thetaRad - Math.PI / 2);
+		rightX = centerX - this.radius * Math.cos(thetaRad + Math.PI / 2);
+		rightY = centerY - this.radius * Math.sin(thetaRad + Math.PI / 2);
+		return "M " + leftX + " " + leftY + " L " + topX + " " + topY + " L " + rightX + " " + rightY;
+	};
+
+	return Needle;
+
+	})();
+
+	needle = new Needle(90,15);
+
+	needle.drawOn(chart, 0);
+
+	// HIST!!!
+	// -----------------------------------------------------------------------------------
+
+	// set the dimensions and margins of the graph
+	var hmargin = {top: 20, right: 30, bottom: 30, left: 40},
+			hwidth = 450 - hmargin.left - hmargin.right,
+			hheight = 275 - hmargin.top - hmargin.bottom;
+
+	// set the ranges
+
+	var x = d3.scaleBand()
+						.domain([-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5])
+						.range([0, hwidth])
+						.padding(0.1);
+
+	var y = d3.scaleLinear()
+						.rangeRound([hheight, 0]);
+
+	// append the svg object to the body of the page
+	// append a 'group' element to 'svg'
+	// moves the 'group' element to the top left margin
+	var hsvg = d3.select('#chart-hist').append("svg")
+			.attr("preserveAspectRatio", "xMinYMin meet")
+			.attr("viewBox", "0 0 450 275")
+			.classed("svg-content", true)
+
+			// .attr("width", hwidth + hmargin.left + hmargin.right)
+			// .attr("height", hheight + hmargin.top + hmargin.bottom)
+			.append("g")
+			.attr("transform", "translate(" + hmargin.left + "," + hmargin.top + ")");
+
+//To add and update bars & axes!
+
+function updatehist(final) {
+
+	var key = function(d) {
+		return d.key;
+	};
+
+	//Update scale domains
+	y.domain([0, d3.max(final, function(d) { return d.value; })]);
+
+	// Select..
+	var bars = hsvg.selectAll("rect")
+			.data(final, key)
+
+	//Enter…
+	bars.enter()
+		.append("rect")
+		.attr("class", function(d) { return 'bar_' + d.key})
+		.attr("x", function(d) {
+			 return x(d.key);
+		})
+		.attr("y", function(d) {
+			 return y(d.value);
+		})
+		.attr("width", x.bandwidth())
+		.attr("height", function(d) {
+			 return (y(0) - y(d.value));
+		})
+
+	//Update...
+	bars.transition()
+	.duration(500)
+	.attr("class", function(d) { return 'bar_' + d.key})
+	.attr("x", function(d) {
+		 return x(d.key);
+	})
+	.attr("y", function(d) {
+		 return y(d.value);
+	})
+	.attr("width", x.bandwidth())
+	.attr("height", function(d) {
+		 return (y(0) - y(d.value));
+	})
+	bars.on ("mouseover", function(d) {
+		//Get this bar's x/y values, then augment for the tooltip
+		var xPosition = parseFloat(d3.select(this).attr("x")) + x.bandwidth() / 2;
+		var yPosition = parseFloat(d3.select(this).attr("y")) - 7; //+ 14 for inside bar
+
+		//Create the tooltip label
+	 hsvg.append("text")
+			.attr("id", "tooltip")
+			.attr("x", xPosition)
+			.attr("y", yPosition)
+			.attr("text-anchor", "middle")
+			.attr("font-family", "sans-serif")
+			.attr("font-size", "14px")
+			.attr("font-weight", "bold")
+			.attr("fill", "black")
+			.text(d.value + " days");
+			})
+
+		bars.on("mouseout", function() {
+			//Remove tooltip
+			d3.select("#tooltip").remove();
+		})
+
+		//Remove bars with no values anymore
+		bars.exit()
+				.transition()
+				.remove();
+
+}
+
+// add the x Axis
+hsvg.append("g")
+		.attr("transform", "translate(0," + hheight + ")")
+		.call(d3.axisBottom(x));
+
+// add the y Axis
+// hsvg.append("g")
+// 		.attr("class", "yaxis_bar")
+// 		.call(d3.axisLeft(y));
+
+		</script>
+	</body>
+</html>
