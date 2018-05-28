@@ -1,17 +1,83 @@
 html, body, #graph {
   height: 100%;
-  font-size: 18px; }
+  font-size: 16px;
+  font-family: Lato, sans-serif;
+  color: rgb(39,39,39);
+  margin-left: 10px;
+  margin-right: 10px; }
+
+.arttitle {
+  color: #47077A;
+  font-size: 2em;
+  padding: 15px 0px 15px 0px;
+  }
+
+.sectitle {
+  color: #47077A;
+  font-size: 1.5em;
+  margin-top: 1%;
+  margin-bottom: 1%;
+}
+
+.imgtitle {
+  padding-top: 10px;
+  text-transform: uppercase; 
+  font-size: 1em;
+}
+
+img {
+  padding-bottom: 10px;
+}
+
+a {
+  text-decoration: none;
+  color: rgb(44,117,190);
+}
+
+p a:hover {
+  text-decoration: none;
+  color: rgb(254, 6, 107);
+}
+
+li a:hover {
+  text-decoration: none;
+  color: rgb(254, 6, 107);
+}
+
+a:link {
+  text-decoration: none;
+}
 
 #container {
-  /*display: flex;*/ }
+  display: flex;
+  position: relative; 
+}
+
+.container {
+  padding-right: 0px;
+  padding-left: 0px;
+  margin-right: 0px;
+  margin-left: 0px;
+}
 
 .step {
   height: 500px;
   max-width: 500px;
   width: 100%;
-  padding: 15px 25px; }
+  /*padding: 0px 0px 50px 0px;*/ }
 
-#graph {
+
+#graph  {
+  margin-right: 0px;
+  width: 55%;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 50px;
+  /*margin-top: 50px;*/
+  float: right;
+}  
+
+/*#graph {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -40,7 +106,7 @@ html, body, #graph {
     height: 100%;
     display: -webkit-box;
     display: -ms-flexbox;
-    display: flex; }
+    display: flex; }*/
 
 .svg-container {
   display: inline-block;
@@ -100,62 +166,85 @@ html, body, #graph {
   fill: #464A4F; }
 
 h2 {
-  font-family: sans-serif;
+  font-family: Lato, sans-serif;;
   color: #47077A;
   font-size: x-large; }
 
 h1 {
-  font-family: sans-serif;
+  font-family: Lato, sans-serif;;
   color: #47077A;
   font-size: medium; }
 
-p {
+/*p {
   font-family: sans-serif;
   color: black;
-  font-size: small; }
+  font-size: small; }*/
 
 @media only screen and (max-width: 320px) {
+  .desktop {
+    visibility: hidden;
+    display: none;
+  }
   h2 {
     font-size: 12px;
-    margin: 3%; }
+    margin: 1%; }
   h1 {
     font-size: 8px;
-    margin: 3%; } }
+    margin: 1%; } }
 
-@media only screen and (min-width: 320px) and (max-width: 480px) {
+@media only screen and (min-width: 320px) and (max-width: 479px) {
+  .desktop {
+    visibility: hidden;
+    display: none;
+  }
   h2 {
     font-size: 15px;
-    margin: 3%; }
+    margin: 1%; }
   h1 {
     font-size: 11px;
-    margin: 3%; } }
+    margin: 1%; } }
 
-@media only screen and (min-width: 480px) and (max-width: 768px) {
+@media only screen and (min-width: 480px) and (max-width: 767px) {
+  .desktop {
+    visibility: hidden;
+    display: none;
+  }
   h2 {
     font-size: 21px;
-    margin: 3%; }
+    margin: 1%; }
   h1 {
     font-size: 16px;
-    margin: 3%; } }
+    margin: 1%; } }
 
 @media only screen and (min-width: 768px) and (max-width: 992px) {
+  .mobile {
+    visibility: hidden;
+    display: none;
+  }
   h2 {
     font-size: 24px;
-    margin: 3%; }
+    margin: 1%; }
   h1 {
     font-size: 18px;
-    margin: 3%; } }
+    margin: 1%; } }
 
 @media only screen and (min-width: 992px) {
+  .mobile {
+    visibility: hidden;
+    display: none;
+  }
+  .sidetext {
+    padding-top: 30px;
+  }
   h2 {
     font-size: 28px;
-    margin: 3%; }
+    margin: 1%; }
   h1 {
     font-size: 20px;
-    margin: 3%; } }
+    margin: 1%; } }
 
-/*	#directions {
-	background: #D3D3D3;
+/*  #directions {
+  background: #D3D3D3;
 }*/
 rect.bar_-1, rect.bar_0, rect.bar_1 {
   fill: #ddddbc; }
