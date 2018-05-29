@@ -104,12 +104,15 @@ aggregate(log$scale, list(log$aha), mean)
 
 #hist(log$scale, breaks=c(-5,-4,-3,-2,-1,0,1,2,3,4,5))
 
+log$aha[log$aha == 0] = "Before Aha!"
+log$aha[log$aha == 1] = "Post Aha!"
+
 b <- ggplot(data=log, aes(factor(scale)))
-b <- b + geom_bar(data=log, aes(factor(scale), fill = factor(gender)), colour="purple4")
+b <- b + geom_bar(data=log, aes(factor(scale), fill = factor(gender)), colour="black")
 b <- b + geom_text(stat='count', aes(label=..count..), vjust=-1, colour="purple4")
 b <- b + scale_fill_manual(values = c("lightpink", "lightblue", "lightyellow1")) 
 b <- b + theme(legend.position = "none") + scale_y_continuous(expand = c(0,0),  limits = c(0,230))
-b <- b + facet_wrap( ~ aha, ncol=1)
+b <- b + facet_wrap( ~ aha, ncol=1) + xlab("Gender Scale") + ylab("Days")
 b
 
 # Frequency of switches

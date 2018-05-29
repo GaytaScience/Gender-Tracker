@@ -3,11 +3,11 @@ setwd("C:/Users/Kelsey/Desktop/Gender-Tracker/data")
 install.packages("tidytext")
 install.packages("stringr")
 install.packages("tidyverse")
-install.packages("libridate")
+install.packages("lubridate")
 library(tidytext)
 library(tidyverse)
 library(stringr)
-library(libridate)
+library(lubridate)
 
 # Read in Data
 #-------------------------------------------
@@ -69,10 +69,11 @@ cloud <- log2 %>%
   filter(!word %in% exclwords) %>%
   filter(!gender == "Neutral") %>%
   acast(word ~ gender, value.var = "n", fill = 0) %>%
-  comparison.cloud(colors = c("lightpink", "lightblue"),
+  comparison.cloud(colors = c("#FFB6C1", "#ADD8E6"),
                    max.words = 100)
 cloud
 
+#c("#FFB6C1", "#ADD8E6") - dash colors
 #c("#F8766D", "#00BFC4") - darker
 #c("lightpink", "lightblue") - matches
 
@@ -104,7 +105,9 @@ word_ratios %>%
   geom_col(show.legend = FALSE) +
   coord_flip() +
   ylab("log odds ratio (Masculine/Feminine)") +
-  scale_fill_discrete(name = "", labels = c("Masculine", "Feminine"))
+  scale_fill_manual("", values=c("#ADD8E6", "#FFB6C1"))
+  
+#scale_fill_discrete(name = "", labels = c("Masculine", "Feminine"))
 
 
 # Pre Post aha!

@@ -3,14 +3,14 @@ setwd("C:/Users/Kelsey/Desktop/Gender-Tracker/data")
 install.packages("tidytext")
 install.packages("stringr")
 install.packages("tidyverse")
-install.packages("libridate")
+install.packages("lubridate")
 install.packages("ggjoy")
 install.packages("radarchart")
 install.packages("ggplot2")
 library(tidytext)
 library(tidyverse)
 library(stringr)
-library(libridate)
+library(lubridate)
 library(ggjoy)
 library(radarchart)
 library(ggplot2)
@@ -77,7 +77,9 @@ avgwdsperwk <- logfull %>%
   mutate(avg = totwords / nn)
 
 # Plot avg words/day by week
-ggplot(avgwdsperwk, aes(time_floor, avg)) + geom_line()
+ggplot(avgwdsperwk, aes(time_floor, avg)) + 
+  geom_line(colour="#47077A", linetype="solid", size=1) +
+  xlab("") + ylab("Weekly Average Words per Day")
 
 ##---------------------------------------------------------------------
 ## Length by Category
@@ -172,10 +174,12 @@ cdat <- sentall %>%
   summarize(mean_sentiment.mean = mean(mean_sentiment, na.rm = TRUE))
 cdat
 
-ggplot(sentall, aes(x=mean_sentiment)) + geom_histogram(binwidth=.5, colour="black", fill="white") + 
+ggplot(sentall, aes(x=mean_sentiment, fill = gender)) + geom_histogram(binwidth=.5, colour="black") + 
   facet_grid(gender ~ .) +
   geom_vline(data=cdat, aes(xintercept=mean_sentiment.mean),
-             linetype="dashed", size=1, colour="red")
+             linetype="dashed", size=1, colour="#47077A") +
+  xlab("Average Daily Sentiment") + ylab("Days") +
+  scale_fill_manual("", values=c("lightpink", "lightblue", "lightyellow1"))
 
 # Dists of sentiment pre/post aha!
 sentall$aha <- ifelse(sentall$date2 < as.Date("2016-04-15"), "Pre", "Post")
@@ -188,7 +192,7 @@ cdat2
 ggplot(sentall, aes(x=mean_sentiment)) + geom_histogram(binwidth=.5, colour="black", fill="white") + 
   facet_grid(aha ~ .) +
   geom_vline(data=cdat2, aes(xintercept=mean_sentiment.mean),
-             linetype="dashed", size=1, colour="red")
+             linetype="dashed", size=1, colour="red") 
 
 ##---------------------------------------------------------------------
 ## Sentiment - Faceted
@@ -258,8 +262,10 @@ radar_f <- nrc_words %>%
 allaha<- chartJSRadar(radar_o)
 allaha
 
-mascaha<- chartJSRadar(radar_m)
+cols <- matrix(c(c(0,0,255), c(152, 214, 234)), nrow = 3)
+mascaha<- chartJSRadar(scores = radar_m, colMatrix = cols)
 mascaha
 
-femaha<- chartJSRadar(radar_f)
+cols <- matrix(c(c(247, 29, 63), c(255, 182, 193)), nrow = 3)
+femaha<- chartJSRadar(scores=radar_f, colMatrix = cols)
 femaha
