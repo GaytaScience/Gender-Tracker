@@ -69,13 +69,14 @@ cloud <- log2 %>%
   filter(!word %in% exclwords) %>%
   filter(!gender == "Neutral") %>%
   acast(word ~ gender, value.var = "n", fill = 0) %>%
-  comparison.cloud(colors = c("#FFB6C1", "#ADD8E6"),
+  comparison.cloud(colors = c("#f9687d", "#49abcc"),
                    max.words = 100)
 cloud
 
 #c("#FFB6C1", "#ADD8E6") - dash colors
 #c("#F8766D", "#00BFC4") - darker
 #c("lightpink", "lightblue") - matches
+#c("#f9b87d", "4ca3bf")
 
 dev.copy(png,'cloud.png')
 dev.off()
