@@ -81,6 +81,8 @@ ggplot(avgwdsperwk, aes(time_floor, avg)) +
   geom_line(colour="#47077A", linetype="solid", size=1) +
   xlab("") + ylab("Weekly Average Words per Day")
 
+ggsave('wordsovertime.png', width = 7, height = 4, dpi = 200)
+
 ##---------------------------------------------------------------------
 ## Length by Category
 ##---------------------------------------------------------------------
