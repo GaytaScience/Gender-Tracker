@@ -78,10 +78,10 @@ avgwdsperwk <- logfull %>%
 
 # Plot avg words/day by week
 ggplot(avgwdsperwk, aes(time_floor, avg)) + 
-  geom_line(colour="#47077A", linetype="solid", size=1) +
+  geom_line(colour="#47077A", linetype="solid", size=.8) +
   xlab("") + ylab("Weekly Average Words per Day")
 
-ggsave('wordsovertime.png', width = 7, height = 4, dpi = 200)
+ggsave('wordsovertime.png', width = 9, height = 5, dpi = 300)
 
 ##---------------------------------------------------------------------
 ## Length by Category
