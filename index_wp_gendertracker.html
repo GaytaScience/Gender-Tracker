@@ -4,10 +4,10 @@
 		<meta charset="utf-8">
 		<!--<title>Test</title>-->
 		<!--<script src="http://code.jquery.com/jquery.js"></script>-->
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+		<script src="https://www.gaytascience.com/wp-content/uploads/2018/07/bootstrap.min_.js"></script>
+		<link rel="stylesheet" href="https://www.gaytascience.com/wp-content/uploads/2018/07/bootstrap.min_.css">
 		<!-- <script type="text/javascript" src="d3/d3.js"></script> -->
-		<script charset="utf-8" src="https://d3js.org/d3.v4.min.js"></script>
+		<script charset="utf-8" src="https://www.gaytascience.com/wp-content/uploads/2018/07/d3.v4.min_.js"></script>
 	
 	</head>
 	<style> /* set the CSS */
@@ -551,7 +551,7 @@
 			// update y Axis
 			hsvg.select(".yaxis_bar")
 					.transition()
-					.call(d3.axisLeft(y));
+					.call(d3.axisLeft(ynew));
 					//.ticks(d3.max(final, function(d) { return d.value })));
 			
 			// Change Date Range Labeling
@@ -673,12 +673,12 @@ Needle = (function() {
 
 	// set the ranges
 
-	var x = d3.scaleBand()
+	var xnew = d3.scaleBand()
 						.domain([-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5])
 						.range([0, hwidth])
 						.padding(0.1);
 
-	var y = d3.scaleLinear()
+	var ynew = d3.scaleLinear()
 						.rangeRound([hheight, 0]);
 
 	// append the svg object to the body of the page
@@ -703,7 +703,7 @@ function updatehist(final) {
 	};
 
 	//Update scale domains
-	y.domain([0, d3.max(final, function(d) { return d.value; })]);
+	ynew.domain([0, d3.max(final, function(d) { return d.value; })]);
 
 	// Select..
 	var bars = hsvg.selectAll("rect")
@@ -714,14 +714,14 @@ function updatehist(final) {
 		.append("rect")
 		.attr("class", function(d) { return 'bar_' + d.key})
 		.attr("x", function(d) {
-			 return x(d.key);
+			 return xnew(d.key);
 		})
 		.attr("y", function(d) {
-			 return y(d.value);
+			 return ynew(d.value);
 		})
-		.attr("width", x.bandwidth())
+		.attr("width", xnew.bandwidth())
 		.attr("height", function(d) {
-			 return (y(0) - y(d.value));
+			 return (ynew(0) - ynew(d.value));
 		})
 
 	//Update...
@@ -729,18 +729,18 @@ function updatehist(final) {
 	.duration(500)
 	.attr("class", function(d) { return 'bar_' + d.key})
 	.attr("x", function(d) {
-		 return x(d.key);
+		 return xnew(d.key);
 	})
 	.attr("y", function(d) {
-		 return y(d.value);
+		 return ynew(d.value);
 	})
-	.attr("width", x.bandwidth())
+	.attr("width", xnew.bandwidth())
 	.attr("height", function(d) {
-		 return (y(0) - y(d.value));
+		 return (ynew(0) - ynew(d.value));
 	})
 	bars.on ("mouseover", function(d) {
 		//Get this bar's x/y values, then augment for the tooltip
-		var xPosition = parseFloat(d3.select(this).attr("x")) + x.bandwidth() / 2;
+		var xPosition = parseFloat(d3.select(this).attr("x")) + xnew.bandwidth() / 2;
 		var yPosition = parseFloat(d3.select(this).attr("y")) - 7; //+ 14 for inside bar
 
 		//Create the tooltip label
@@ -771,7 +771,7 @@ function updatehist(final) {
 // add the x Axis
 hsvg.append("g")
 		.attr("transform", "translate(0," + hheight + ")")
-		.call(d3.axisBottom(x));
+		.call(d3.axisBottom(xnew));
 
 // add the y Axis
 // hsvg.append("g")
